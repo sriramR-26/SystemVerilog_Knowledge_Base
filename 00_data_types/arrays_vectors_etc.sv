@@ -25,6 +25,9 @@ module tb;
     end
     //=======================
     
+
+
+    //=======================
     // How to initialize and walk through a muti dimensional array
 
     int md_array[2][4];
@@ -33,5 +36,13 @@ module tb;
         foreach(md_array[i]) disp_msg("Block2", $sformatf("%0p",md_array[i]));
         foreach(md_array[i,j]) disp_msg("Block2", $sformatf("%0d",md_array[i][j]));
     end
+    
+    // foreach() interates as per the range defined in that particular dimension.
+    // If md_array was defined as md_array[1:0][3:0] then values of i and j will be in descending order
+    
+    //=======================
+    
+    // Interesting fact: Adding an empty $display returns a new line
+
 
 endmodule
