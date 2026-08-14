@@ -15,16 +15,23 @@ module tb;
     int arr[5];
     initial begin
         arr = '{3,3,5,2,1}; 
-        disp_msg("Block1", arr);        
+        disp_msg("Block1", $sformatf("%0p",arr));        
         arr[0:2] = '{5,3,1};
-        disp_msg("Block1", arr);
+        disp_msg("Block1", $sformatf("%0p",arr));
         arr = '{5{2}};
-        disp_msg("Block1", arr);
+        disp_msg("Block1", $sformatf("%0p",arr));
         arr = '{default:5}; // All elements are set to 5
-        disp_msg("Block1", arr);
+        disp_msg("Block1", $sformatf("%0p",arr));
     end
     //=======================
     
-    // How to initialize and walk
+    // How to initialize and walk through a muti dimensional array
+
+    int md_array[2][4];
+    initial begin
+        md_array = '{'{3,4,31,1}, '{45,1,4,1}};
+        foreach(md_array[i]) disp_msg("Block2", $sformatf("%0p",md_array[i]));
+        foreach(md_array[i,j]) disp_msg("Block2", $sformatf("%0d",md_array[i][j]));
+    end
 
 endmodule
