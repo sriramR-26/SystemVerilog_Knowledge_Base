@@ -5,7 +5,7 @@ module tb;
 
     logic [7:0] lv;     // 4 state, 8 bit unsigned integer
     // Logic can be driven by only a single driver. In case of multiple drivers, it will show a warning or error.
-    
+    // Useful to find netlist bugs
     time t;             // 4 state, 64 bit unsigned integer
     int unsigned ui;    // 2 state, unsigned 32 bit integer
 

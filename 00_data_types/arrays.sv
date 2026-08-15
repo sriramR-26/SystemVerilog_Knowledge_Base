@@ -8,7 +8,12 @@ module tb;
 
     bit [7:0] b_unpack [4]; // Unpacked array of 4 elements each is 8 bits wide
     // The above variable will be stored in 4 32-bit word spaces instead of a single 32-bit word divided into 4 parts.
+    // On the same note, simulators, usually store 4-state types like 'logic' in two or more consecutive words (twice of 2-state variables)
 
+    //=======================
+    // Accessing an out of bound index returns the default value of the array type.
+    // Applies for all array types - fixed, dynamic, queue or associative
+    //=======================
 
     //=======================
     // How to declare an array literal?
