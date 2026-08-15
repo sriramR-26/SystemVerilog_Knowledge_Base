@@ -16,4 +16,5 @@ module tb;
     integer i4;         // 4 state, 32 bit signed integer
     real r;             // 2 state, double precision floating point
 
+    // Default value for 2-state variables is 0 and for 4-state variables it's 'X'
 endmodule
