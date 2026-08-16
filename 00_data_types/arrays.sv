@@ -3,11 +3,14 @@ module tb;
     function void disp_msg(input string tag, input string msg);
         $display($sformatf("[%0t][%0s]: %0s", $time, tag, msg));
     endfunction
-    // Usually system-verilog simulators store each element of an unpacked array in a 32-bit word boundary.
-    // So a byte, shortint, and int are all stored in a single word whereas longint takes 2 word.
-
+    /* 
+    Usually system-verilog simulators store each element of an unpacked array in a
+    32-bit word boundary. So a byte, shortint, and int are all stored in a single
+    word whereas longint takes 2 word.
+    */
     bit [7:0] b_unpack [4]; // Unpacked array of 4 elements each is 8 bits wide
-    /* The above variable will be stored in 4 32-bit word spaces instead of a single
+    /* 
+       The above variable will be stored in 4 32-bit word spaces instead of a single
        32-bit word divided into 4 parts. On the same note, simulators, usually store
        4-state types like 'logic' in two or more consecutive words (twice of 2-state
        variables)
