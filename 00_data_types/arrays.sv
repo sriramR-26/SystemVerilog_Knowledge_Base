@@ -15,12 +15,14 @@ module tb;
        4-state types like 'logic' in two or more consecutive words (twice of 2-state
        variables)
     */
-    //=======================
-    // Accessing an out of bound index returns the default value of the array type.
-    // Applies for all array types - fixed, dynamic, queue or associative
-    //=======================
+    //============================================================================================
+    /*
+    Accessing an out of bound index returns the default value of the array type.
+    Applies for all array types - fixed, dynamic, queue or associative
+    */
+    //============================================================================================
 
-    //=======================
+    //============================================================================================
     // How to declare an array literal?
     int arr[5];
     initial begin
@@ -33,11 +35,11 @@ module tb;
         arr = '{default:5}; // All elements are set to 5
         disp_msg("Block 1", $sformatf("%0p",arr));
     end
-    //=======================
+    //============================================================================================
     
 
 
-    //=======================
+    //============================================================================================
     // How to initialize and walk through a muti dimensional array
 
     int md_array[2][4];
@@ -47,21 +49,23 @@ module tb;
         foreach(md_array[i,j]) disp_msg("Block 2", $sformatf("%0d",md_array[i][j]));
     end
     
-    // foreach() interates as per the range defined in that particular dimension.
-    // If md_array was defined as md_array[1:0][3:0] then values of i and j will be in descending order
-    
-    // Interesting fact: Adding an empty $display returns a new line
+    /*
+    foreach() interates as per the range defined in that particular dimension.
+    If md_array was defined as md_array[1:0][3:0] then values of i and j will
+    be in descending order.
+    */
 
-    //=======================
+    //============================================================================================
 
 
-    //=======================
+    //============================================================================================
     // Visualization of unpacked arrays:
     bit [3:0][7:0] barray [4];
-    // 4 elements each containing 4 blocks and each block has 8 sub-blocks of 1 bit width
-    // While the elements are "unpacked", the blocks and sub-blocks here are packed
-    // So total space acquired might be 4 32-words in total
-
+    /*
+    4 elements each containing 4 blocks and each block has 8 sub-blocks of 1 bit width
+    While the elements are "unpacked", the blocks and sub-blocks here are packed. So 
+    total space acquired might be 4 32-words in total
+    */
     initial begin
         barray[1] = '{8'h22, 8'h23, 8'h44, 8'h12};
         barray[2][1] = 8'h90;
@@ -81,11 +85,12 @@ module tb;
         @(barray[3]);
         disp_msg("Block 4", "'barray' finally changed!");
     end    
-    //=======================
+    //============================================================================================
 
     
-    //=======================
-    // Dynamic arrays
+    //============================================================================================
+    /*
+    Dynamic arrays
     // They can be created during run time but if we want to change their sizes, we need to re-create them. We can't ust append.
     
     // int arr[];
@@ -95,12 +100,18 @@ module tb;
             // sarr = '{3,5,3,1};
             // arr = new[4](saar);
             // disp_msg("MISC BLOCK", $sformatf("%0p", arr));
-            // arr = new[8](arr); // copies previous elements but this has a performance issue has it copies the entire contents of an array
+
+            // arr = new[8](arr); // copies previous elements 
+            //But this has a performance issue has it copies the entire an array
+             
             // arr = new[10]; // Deletes previous elements
     // end
+    */
 
-    // Muti-dimensional arrays can be arrays of varrying length arrays. 
-    // If we have md_darray[][], then we can have md_array[0].size = 1, md_array[1].size = 5,....
+    /*
+    Muti-dimensional arrays can be arrays of varrying length arrays. If we have 
+    md_darray[][], then we can have md_array[0].size = 1, md_array[1].size = 5,...
+    */
     int md_darray[][];
     initial begin
         md_darray = new[4];
