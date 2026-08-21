@@ -45,6 +45,7 @@ module tb;
     // In case of queue[$], we will always access the last element.
     // However in a range, queue[$:5] or queue[9:$], it will access the elements from the left or right extremity respectively
 
-
+    // Queues are slightly less efficiient to access than fixed/dynamic size arrays because of additional pointers
+    // But if data set grows and shrinks often, then using new[] for dynamic arrays everytime is expensive. 
 
 endmodule
