@@ -40,7 +40,7 @@ module tb;
         disp_msg("AARRAY BASICS 5", $sformatf("Index Exists? = %0s", nib_array.exists(6)? "True": "Flase"   ));
 
         // Accessing an unwritten index returns the default value of the array type. 
-        disp_msg("AARRAY BASICS 6", $sformatf("Unwritten Index Value Stored = %0b", nib_array[5]);
+        disp_msg("AARRAY BASICS 6", $sformatf("Unwritten Index Value Stored = %0b", nib_array[5]));
 
     end
 endmodule

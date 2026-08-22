@@ -3,7 +3,7 @@ module tb_array_methods;
         $display($sformatf("[%0t][%0s]: %0s", $time, tag, msg));
     endfunction
     int arr[$] = {21,33,42,20,20,42,11,24,33};
-    int res;
+    longint res;
     int arr_loc[$];
     int res_2;
 
@@ -13,17 +13,17 @@ module tb_array_methods;
     initial begin
         res = arr.sum();
         disp_msg("Block 1", $sformatf("res_sum = %0d", res));
-        res = arr.product();
-        disp_msg("Block 1", $sformatf("res_product = %0d", res));
-        res = arr.and();
-        disp_msg("Block 1", $sformatf("res_and = %0d", res));
+        // res = arr.product();
+        // disp_msg("Block 1", $sformatf("res_product = %0d", res));
+        // res = arr.and();
+        // disp_msg("Block 1", $sformatf("res_and = %0d", res));
     end
 
     // ====================================== //
     // Array Locator Methods
     // All array locator methods return the results as a queue of type "int" and not "integer"
     initial begin
-        arr_loc = arr.min(); // Returns {20}
+        arr_loc = arr.min(); // Returns {11}
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc));
         arr_loc = arr.max(); // Returns {42}
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc)); 
@@ -40,13 +40,13 @@ module tb_array_methods;
         arr_loc = arr.find() with (item > 34); // Returns a queue of type int
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc));
 
-        arr_loc = arr.find(x) with (x <42); /
+        arr_loc = arr.find(x) with (x <42); 
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc));
 
         arr_loc = arr.find_index() with (item == 33);
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc));
 
-        arr_loc = arr.find_first_index() with (item == 32);
+        arr_loc = arr.find_first_index() with (item == 32); // Returns an empty string
         disp_msg("Block 2", $sformatf("arr_loc = %0p", arr_loc));
 
         arr_loc = arr.find_last_index with (item == 20);
@@ -55,9 +55,9 @@ module tb_array_methods;
 
         // How about we combine some boolean functions with locators?
         //int arr[$] = {21,33,42,20,20,42,11,24,33};
-        res_2 = arr.sum(x) with (x>34); 
+        res_2 = arr.sum() with (item>34?1:0); 
         // Returns sum({0,0,1,0,0,1,0,0,0}) = 2; 
-        // This can be used to find the count of certain values        
+        // This can be used to find the count of certain values       
         disp_msg("Block 3", $sformatf("res_2 = %0d", res_2));
 
         res_2 = arr.sum() with (item * (item>34)); 
@@ -85,14 +85,22 @@ module tb_array_methods;
     // Unlike array locators and reduction operators, these change the original array!!
     int d [] = '{2,1,2,42,3,5};
 
-    struct packed {bit p[7:0] r,g,b} pix[];
-    pix = '{'{r:7, g:34, b: 65}, '{r:70, g:49, b: 6},'{r:46, g:32, b: 63}};
+    struct packed {bit [7:0] r,g,b;} pix[];
+  
     initial begin
-        #40; // To ensure I don't change the data for previous blocks
-        disp_msg("Block 4", $sformatf("Reverse = %0p", d.reverse());
-        disp_msg("Block 4", $sformatf("Sorted = %0p", d.sorted());
-        disp_msg("Block 4", $sformatf("Shuffled = %0p", d.shuffle())
-        disp_msg("Block 4", $sformatf("Reverse Sorted = %0p", d.rsort());  
+        #40;
+        pix = '{'{r:7, g:34, b: 65}, '{r:70, g:49, b: 6},'{r:46, g:32, b: 63}};
+        d.reverse();
+        disp_msg("Block 4", $sformatf("Reverse = %0p", d));
+
+        d.sort();
+        disp_msg("Block 4", $sformatf("Sorted = %0p", d));
+
+        d.shuffle();
+        disp_msg("Block 4", $sformatf("Shuffled = %0p", d));
+
+        d.rsort();
+        disp_msg("Block 4", $sformatf("Reverse Sorted = %0p", d));  
 
         // reverse() and shuffle() don't have a "with" clause. But others have...
         pix.sort() with (item.r); // Sort using r only
